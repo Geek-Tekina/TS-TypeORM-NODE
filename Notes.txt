@@ -1,0 +1,3 @@
+POSTGRES_SUPER_USER_PASSWORD = "root"
+
+Flow : Backend --> ORM (Object Relational Mapper) --> Database Driver
