@@ -9,18 +9,25 @@ app.use(express.json());
 app.get("/", async (req, res)=>{
     const userRepo = AppDataSource.getRepository(User);
 
-    //inserting values
-    const user : User = new User();
-    user.email = "aniket@gmail.com";
-    user.firstName = "Aniket";
-    user.lastName = "Sharma";
-    await userRepo.save(user);
+    //-------------------------inserting values-----------------------------
+    // const user : User = new User();
+    // user.email = "lavakush@gmail.com";
+    // user.firstName = "Luv";
+    // user.lastName = "Sharma";
+    // await userRepo.save(user);
     
-    // finding all the records
+    // -----------------------finding all the records-------------------------
     const allRecords = await userRepo.find();
+
+    // ------------------------updating record------------------------------
+    // await userRepo.update(2, {lastName : "Kush Gaur"});
+    
+    // ---------------------------filtering record-------------------------
+    // const temp = await userRepo.findOne({where : {lastName : "Kush Gaur"}})
 
     res.send({
         message : "Hello from server !!",
+        // temp,
         data : allRecords
     })
 })
