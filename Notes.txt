@@ -1,3 +1,6 @@
 POSTGRES_SUPER_USER_PASSWORD = "root"
 
 Flow : Backend --> ORM (Object Relational Mapper) --> Database Driver
+
+One to One Relation : User <--> Profile
+onDelete : "cascade" in user entity -> means if any profile is deleted then user will also be deleted
