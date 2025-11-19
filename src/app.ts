@@ -3,6 +3,8 @@ import express from "express";
 import { AppDataSource } from "./data-source";
 import { User } from "./entity/User";
 import { Profile } from "./entity/Profile";
+import { Product } from "./entity/Product";
+import { Company } from "./entity/Company";
 
 const app = express();
 app.use(express.json());
@@ -79,7 +81,7 @@ app.get("/oneToOne",async (req, res)=>{
         
     // if(userFound){
     //     userFound.lastName = "Changed Lastname";
-    //     userFound.profile.gender = "female";
+    //     userFound.profile.gender = "female"; // very Important
     //     const updatedUser = await userRepo.save(userFound);
     //     return res.send({
     //         message : "User details updated !!",
@@ -104,6 +106,70 @@ app.get("/oneToOne",async (req, res)=>{
     res.send({
         message : "Hello from server !!",
     })
+})
+
+app.get("/manyToOne-oneToOne",async (req, res) => {
+    // -------------------------- insertion - Company and Products ----------------------------
+    const companyRepo = AppDataSource.getRepository(Company);
+    
+    // const products : Product[] = [];
+
+    // const Iphone = new Product();
+    // Iphone.name = "Iphone"; Iphone.description = "Smart Phone"; Iphone.price = 90000;
+
+    // const Ipad = new Product();
+    // Ipad.name = "Ipad"; Ipad.description = "Smart Tablet"; Ipad.price = 190000;
+
+    // const Macbook = new Product();
+    // Macbook.name = "Macbook"; Macbook.description = "Smart Laptop"; Macbook.price = 350000;
+
+    // products.push(Iphone, Ipad, Macbook);
+
+    // let newCompany : Company = new Company();
+    // newCompany.name = "Apple"; newCompany.description = "Tech Company based at California. Parent is ABC"; newCompany.products = products;
+
+    // const savedData = await companyRepo.save(newCompany);
+
+    // res.send({
+    //     message : "New Comopany and it's products have been inserted !!",
+    //     data : savedData
+    // })
+
+    // ------------------------------------- reading ---------------------------------------------------------
+
+    // const allCompanyProducts = await companyRepo.find({where : {id : 1}, relations : {products : true}});
+    // res.send({
+    //     message : "Company and all products !!",
+    //     data : allCompanyProducts
+    // })
+
+    // ------------------------------------ updating ---------------------------------------------------------
+    // const getCompany = await companyRepo.findOne({where : {id : 1}, relations : {products : true}});
+    // if(getCompany && getCompany.products) {
+    //     // let us change all the product costings to 1 lac
+    //     let products = getCompany.products;
+    //     for(let i = 0; i < products.length; ++i){
+    //         const product = products[i];
+    //         if (product) { // Check if the product is defined
+    //             product.price = 100000;
+    //         }
+    //     }
+    //     const updatedData = await companyRepo.save(getCompany);
+    //     res.send({
+    //         message : "Updation done successfully !!",
+    //         data : updatedData
+    //     })
+    // } else {
+    //     res.send({
+    //         message : "No company with this id exists."
+    //     });
+    // }
+
+    // ---------------------------- Delete on Cascade ---------------------------
+
+    const deletedCompany = await companyRepo.delete(3);
+    res.send({message : "Company deleted", data : deletedCompany})
+
 })
 
 AppDataSource.initialize().then(()=>{

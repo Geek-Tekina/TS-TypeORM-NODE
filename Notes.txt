@@ -4,3 +4,7 @@ Flow : Backend --> ORM (Object Relational Mapper) --> Database Driver
 
 One to One Relation : User <--> Profile
 onDelete : "cascade" in user entity -> means if any profile is deleted then user will also be deleted
+
+Many To One & One to Many Relation : Company <---> Products
+Company (1) —— owns —— (M) Product 
+1. One Company can hame many products. Many Products can have one company.
